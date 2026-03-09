@@ -1,0 +1,60 @@
+HOW TO DEPLOY THIS PROJECT TO GITHUB PAGES (MANUALLY FROM VSCODE)
+=================================================================
+
+I have already installed the `gh-pages` package and configured your `package.json` and `vite.config.ts` files for you. Follow these steps to deploy your project from VSCode:
+
+STEP 1: INITIALIZE GIT (If you haven't already)
+-----------------------------------------------
+1. Open the terminal in VSCode (Terminal > New Terminal).
+2. Run the following commands:
+   git init
+   git add .
+   git commit -m "Initial commit"
+
+STEP 2: CREATE A GITHUB REPOSITORY
+----------------------------------
+1. Go to https://github.com and log in to your account.
+2. Click the "+" icon in the top right corner and select "New repository".
+3. Give your repository a name (e.g., "my-store").
+4. Leave it as "Public" (GitHub Pages requires public repos for free accounts).
+5. Do NOT initialize it with a README, .gitignore, or license.
+6. Click "Create repository".
+
+STEP 3: LINK YOUR LOCAL PROJECT TO GITHUB
+-----------------------------------------
+1. On the next page in GitHub, copy the URL of your new repository.
+2. Go back to your VSCode terminal and run:
+   git remote add origin <YOUR_GITHUB_REPO_URL>
+   (Replace <YOUR_GITHUB_REPO_URL> with the URL you copied, e.g., https://github.com/username/my-store.git)
+3. Push your code to GitHub:
+   git branch -M main
+   git push -u origin main
+
+STEP 4: DEPLOY TO GITHUB PAGES
+------------------------------
+1. In your VSCode terminal, simply run:
+   npm run deploy
+
+   (This command will automatically build your project into a 'dist' folder and push it to a new branch called 'gh-pages' on your GitHub repository).
+
+STEP 5: CONFIGURE GITHUB PAGES SETTINGS
+---------------------------------------
+1. Go to your repository on GitHub.
+2. Click on "Settings" (the gear icon near the top right).
+3. In the left sidebar, click on "Pages".
+4. Under "Build and deployment" -> "Source", ensure "Deploy from a branch" is selected.
+5. Under "Branch", select the "gh-pages" branch from the dropdown, and select the "/ (root)" folder.
+6. Click "Save".
+
+STEP 6: VIEW YOUR LIVE WEBSITE
+------------------------------
+1. Wait a minute or two for GitHub to build and deploy your site.
+2. At the top of the "Pages" settings screen, you will see a message: "Your site is live at https://<username>.github.io/<repo-name>/".
+3. Click the link to see your live store!
+
+UPDATING YOUR SITE LATER
+------------------------
+Whenever you make changes to your code in VSCode and want to update the live website, simply run:
+npm run deploy
+
+(Note: If you only update your Google Sheet, you DO NOT need to redeploy. The live site will automatically fetch the new products from the sheet when users visit it!)
