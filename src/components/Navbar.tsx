@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Moon, Sun, ShoppingBag } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
+import { FaWolfPackBattalion } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import { useCurrency, Currency } from '../context/CurrencyContext';
 
@@ -21,7 +22,11 @@ export const Navbar: React.FC = () => {
       <nav className="w-full max-w-5xl bg-white/70 dark:bg-[#18181b]/70 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 rounded-2xl shadow-lg shadow-zinc-200/20 dark:shadow-black/20 transition-all duration-300 pointer-events-auto">
         <div className="flex justify-between items-center h-14 px-4 sm:px-6">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <div className="glitch-icon-wrapper">
+              <FaWolfPackBattalion className="w-6 h-6 text-indigo-600 dark:text-indigo-400 relative z-10" />
+              <FaWolfPackBattalion className="w-6 h-6" />
+              <FaWolfPackBattalion className="w-6 h-6" />
+            </div>
             <Link to="/" className="flex flex-col">
               <span className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight leading-none">
                 N E X A 1337

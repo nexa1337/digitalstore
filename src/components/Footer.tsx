@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Linkedin, Instagram } from 'lucide-react';
+import { Linkedin, Instagram } from 'lucide-react';
+import { FaWolfPackBattalion } from 'react-icons/fa';
 
 export const Footer: React.FC = () => {
   return (
@@ -9,7 +10,11 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <ShoppingBag className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+              <div className="glitch-icon-wrapper">
+                <FaWolfPackBattalion className="w-6 h-6 text-indigo-600 dark:text-indigo-400 relative z-10" />
+                <FaWolfPackBattalion className="w-6 h-6" />
+                <FaWolfPackBattalion className="w-6 h-6" />
+              </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-zinc-900 dark:text-white tracking-tight leading-none">
                   N E X A 1337

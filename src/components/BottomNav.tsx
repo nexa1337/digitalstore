@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, ShoppingBag, Info, Phone } from 'lucide-react';
+import { FaWolfPackBattalion } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 export const BottomNav: React.FC = () => {
@@ -9,6 +10,7 @@ export const BottomNav: React.FC = () => {
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Shop', path: '/shop', icon: ShoppingBag },
+    { name: 'NEXA', path: '/', icon: FaWolfPackBattalion, isLogo: true },
     { name: 'About', path: '/about', icon: Info },
     { name: 'Contact', path: '/contact', icon: Phone },
   ];
@@ -18,7 +20,7 @@ export const BottomNav: React.FC = () => {
       <div className="w-full max-w-md bg-white/70 dark:bg-[#18181b]/70 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 rounded-2xl shadow-lg shadow-zinc-200/20 dark:shadow-black/20 transition-all duration-300 pointer-events-auto">
         <div className="flex justify-around items-center h-16 px-2 relative">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            const isActive = location.pathname === item.path && !item.isLogo;
             const Icon = item.icon;
             
             return (
@@ -35,22 +37,34 @@ export const BottomNav: React.FC = () => {
                     transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                   />
                 )}
-                <Icon
-                  className={`w-6 h-6 transition-colors ${
-                    isActive
-                      ? 'text-indigo-600 dark:text-indigo-400'
-                      : 'text-zinc-500 dark:text-zinc-400'
-                  }`}
-                />
-                <span
-                  className={`text-[10px] font-medium transition-colors ${
-                    isActive
-                      ? 'text-indigo-600 dark:text-indigo-400'
-                      : 'text-zinc-500 dark:text-zinc-400'
-                  }`}
-                >
-                  {item.name}
-                </span>
+                {item.isLogo ? (
+                  <div className="-mt-4 bg-white dark:bg-[#18181b] p-3 rounded-full shadow-lg border border-zinc-200/50 dark:border-zinc-800/50 flex items-center justify-center">
+                    <div className="glitch-icon-wrapper">
+                      <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400 relative z-10" />
+                      <Icon className="w-6 h-6" />
+                      <Icon className="w-6 h-6" />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <Icon
+                      className={`w-6 h-6 transition-colors ${
+                        isActive
+                          ? 'text-indigo-600 dark:text-indigo-400'
+                          : 'text-zinc-500 dark:text-zinc-400'
+                      }`}
+                    />
+                    <span
+                      className={`text-[10px] font-medium transition-colors ${
+                        isActive
+                          ? 'text-indigo-600 dark:text-indigo-400'
+                          : 'text-zinc-500 dark:text-zinc-400'
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                  </>
+                )}
               </Link>
             );
           })}
