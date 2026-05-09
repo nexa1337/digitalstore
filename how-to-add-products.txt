@@ -1,0 +1,46 @@
+HOW TO ADD PRODUCTS TO YOUR STORE
+=================================
+
+Your store is connected to a Google Sheet. To add, edit, or remove products, you simply need to update the Google Sheet. The website will automatically fetch the latest data!
+
+STEP 1: OPEN YOUR GOOGLE SHEET
+------------------------------
+Open the Google Sheet that is linked to your website. (This is the URL you provided in the VITE_GOOGLE_SHEET_CSV_URL environment variable).
+
+STEP 2: ADD A NEW ROW
+---------------------
+Scroll to the bottom of the sheet and add a new row for your product. 
+
+STEP 3: FILL OUT THE COLUMNS
+----------------------------
+Make sure your Google Sheet has the following columns (the exact spelling matters):
+
+id (e.g., "1", "2", "my-script")
+title (e.g., "Ultimate UI Kit")
+priceUSD (e.g., "49.00")
+shortDescription (e.g., "A great UI kit.")
+fullDescription (You can use Markdown here, including ![alt](image-url.gif) for GIFs)
+category (e.g., "Code", "Design")
+type (e.g., "Figma File", "React Source Code")
+images (Comma-separated URLs, e.g., https://image1.jpg, https://image2.gif)
+features (Comma-separated list, e.g., Responsive, Dark Mode, Free Updates)
+gumroadLink (e.g., https://gumroad.com/l/your-product)
+size (e.g., "1.2 GB" or "45 MB")
+pages (e.g., "120" or "0")
+livePreviewUrl (Optional: e.g., https://nexa1337.com)
+
+STEP 4: FORMATTING YOUR "fullDescription"
+-----------------------------------------
+How to format your "fullDescription" in Google Sheets:
+Subtitles: Use hashtags (e.g., ## My Subtitle or ### Smaller Subtitle)
+Bold Text: Wrap text in double asterisks (e.g., **This is bold**)
+Lists: Use dashes or numbers (e.g., - First item or 1. First item)
+Images: Use markdown image syntax (e.g., ![Image Description](https://your-image-link.jpg)) or standard HTML (<img src="https://your-image-link.jpg" />)
+
+STEP 5: PUBLISH / SAVE
+----------------------
+Google Sheets saves automatically! As long as your sheet is published to the web (File > Share > Publish to web -> as CSV), your website will instantly reflect the new products the next time you refresh the page.
+
+SEE ALSO
+--------
+If you want to deploy your store to the internet for free, see the new "how-to-deploy-github-pages.txt" file for step-by-step instructions!

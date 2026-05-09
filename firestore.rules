@@ -1,0 +1,95 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // Helper Functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isVerified() {
+      return isSignedIn(); // Allow without email_verified since some providers might not set it
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'marouananouar02@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+    
+    function incoming() {
+      return request.resource.data;
+    }
+    
+    function existing() {
+      return resource.data;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    // Validations
+    function isValidProduct(data) {
+      return data.keys().hasAll(['title', 'priceUSD', 'ownerId', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+             data.priceUSD is number && data.priceUSD >= 0 &&
+             data.ownerId is string &&
+             data.createdAt is timestamp;
+    }
+    
+    function isValidVisit(data) {
+      return data.keys().hasAll(['timestamp', 'path']) &&
+             data.timestamp is timestamp &&
+             data.path is string && data.path.size() <= 500;
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['displayName', 'email', 'photoURL', 'lastLoginAt']) &&
+             data.displayName is string && data.displayName.size() <= 100 &&
+             data.email is string && data.email.size() <= 150 &&
+             (data.photoURL is string || data.photoURL == null || data.photoURL == "") &&
+             data.lastLoginAt is timestamp;
+    }
+    
+    // Admins
+    match /admins/{adminId} {
+      allow get: if isAdmin() || (isSignedIn() && request.auth.uid == adminId);
+      allow list: if isAdmin();
+      // No creates or updates from client to prevent privilege escalation
+    }
+    
+    // Products
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidId(productId) && isValidProduct(incoming()) && incoming().createdAt == request.time && incoming().ownerId == request.auth.uid;
+      allow update: if isAdmin() && isValidId(productId) && isValidProduct(incoming()) && incoming().ownerId == existing().ownerId &&
+        (
+          incoming().diff(existing()).affectedKeys().hasOnly(['title', 'priceUSD', 'shortDescription', 'fullDescription', 'category', 'type', 'images', 'coverImage', 'features', 'gumroadLink', 'size', 'pages', 'updatedAt', 'livePreviewUrl', 'cihBankPaymentEnabled'])
+        ) && incoming().updatedAt == request.time;
+      allow delete: if isAdmin() && isValidId(productId);
+    }
+    
+    // Visits (Website Traffic)
+    match /visits/{visitId} {
+      allow create: if isValidId(visitId) && isValidVisit(incoming()) && incoming().timestamp == request.time;
+      allow get, list, delete: if isAdmin();
+    }
+    
+    // Users
+    match /users/{userId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn() && request.auth.uid == userId && isValidUser(incoming()) && incoming().lastLoginAt == request.time && !incoming().keys().hasAny(['role']);
+      allow update: if isSignedIn() && request.auth.uid == userId && isValidUser(incoming()) && incoming().lastLoginAt == request.time && (
+        !incoming().keys().hasAny(['role']) || ('role' in existing() && incoming().role == existing().role)
+      );
+    }
+  }
+}

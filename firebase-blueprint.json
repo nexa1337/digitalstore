@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Digital product representation",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "priceUSD": { "type": "number" },
+        "shortDescription": { "type": "string" },
+        "fullDescription": { "type": "string" },
+        "category": { "type": "string" },
+        "type": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "coverImage": { "type": "string" },
+        "features": { "type": "array", "items": { "type": "string" } },
+        "gumroadLink": { "type": "string" },
+        "size": { "type": "string" },
+        "pages": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviews": { "type": "number" },
+        "downloads": { "type": "number" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" },
+        "ownerId": { "type": "string" },
+        "cihBankPaymentEnabled": { "type": "boolean" }
+      },
+      "required": ["title", "priceUSD", "ownerId", "createdAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin configuration and stats",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "totalVisits": { "type": "number" }
+      },
+      "required": ["email"]
+    },
+    "Visit": {
+      "title": "Visit",
+      "description": "A single visit to the website for traffic tracking",
+      "type": "object",
+      "properties": {
+        "timestamp": { "type": "number" },
+        "path": { "type": "string" }
+      },
+      "required": ["timestamp", "path"]
+    }
+  },
+  "firestore": {
+    "products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Stores all digital products"
+    },
+    "admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Stores admin privileges and aggregate traffic data"
+    },
+    "visits/{visitId}": {
+      "schema": { "$ref": "#/entities/Visit" },
+      "description": "Stores raw traffic logs"
+    }
+  }
+}
