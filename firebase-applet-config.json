@@ -1,10 +1,8 @@
 {
-  "projectId": "gen-lang-client-0447500373",
-  "appId": "1:76674217526:web:9ed335500393bfbdacca97",
-  "apiKey": "AIzaSyCFvxkQOxpuG_Rrn3clWz27YU9dyu3uYDc",
-  "authDomain": "gen-lang-client-0447500373.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-d3e6557a-d16c-438e-a5c4-bee57df8c50c",
-  "storageBucket": "gen-lang-client-0447500373.firebasestorage.app",
-  "messagingSenderId": "76674217526",
-  "measurementId": ""
+  "apiKey": "AIzaSyBhmBeicQmf7TMcxpr2W5oIIgB8nRq2TWQ",
+  "authDomain": "nexa-digital-store-f4e7d.firebaseapp.com",
+  "projectId": "nexa-digital-store-f4e7d",
+  "storageBucket": "nexa-digital-store-f4e7d.firebasestorage.app",
+  "messagingSenderId": "540088367930",
+  "appId": "1:540088367930:web:7a5478b606897ecb4d2e03"
 }
