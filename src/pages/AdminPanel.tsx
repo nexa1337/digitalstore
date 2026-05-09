@@ -467,9 +467,8 @@ export const AdminPanel: React.FC = () => {
               ) : (
                 <>
                   {filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map(p => {
-                    const isFirebaseProduct = firebaseProducts.some(fp => fp.id === p.id);
                     return (
-                      <div key={p.id} className={`group relative flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-zinc-50 dark:bg-zinc-800/30 hover:bg-white dark:hover:bg-zinc-800 border ${isFirebaseProduct ? 'border-zinc-200 dark:border-zinc-800 hover:border-indigo-500/30' : 'border-dashed border-zinc-300 dark:border-zinc-700'} rounded-2xl transition-all shadow-sm`}>
+                      <div key={p.id} className="group relative flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-zinc-50 dark:bg-zinc-800/30 hover:bg-white dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 hover:border-indigo-500/30 rounded-2xl transition-all shadow-sm">
                         {p.coverImage && (
                           <div className="w-full sm:w-24 h-32 sm:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-800">
                             <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover" />
@@ -480,7 +479,6 @@ export const AdminPanel: React.FC = () => {
                             <div className="min-w-0">
                               <h4 className="font-bold text-lg truncate text-zinc-900 dark:text-white flex items-center gap-2">
                                 {p.title}
-                                {!isFirebaseProduct && <span className="text-[10px] bg-zinc-200 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 px-1.5 py-0.5 rounded ml-1 uppercase shrink-0">CSV</span>}
                               </h4>
                               <div className="flex items-center gap-1.5 mt-1">
                                 <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider shrink-0">ID:</span>
@@ -494,18 +492,12 @@ export const AdminPanel: React.FC = () => {
                           <p className="text-sm text-zinc-500 truncate mb-2">{p.category} &bull; {p.shortDescription}</p>
                           
                           <div className="flex items-center gap-2">
-                            {isFirebaseProduct ? (
-                              <>
-                                <button onClick={() => handleEdit(p)} className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 rounded-lg text-sm hover:border-indigo-500 hover:text-indigo-500 transition">
-                                  <Edit className="w-3.5 h-3.5" /> Edit
-                                </button>
-                                <button onClick={() => handleDelete(p.id)} className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded-lg text-sm hover:bg-red-100 dark:hover:bg-red-500/20 transition">
-                                  <Trash2 className="w-3.5 h-3.5" /> Delete
-                                </button>
-                              </>
-                            ) : (
-                              <p className="text-xs text-zinc-400 italic">Edit this product in your Google Sheet.</p>
-                            )}
+                            <button onClick={() => handleEdit(p)} className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 rounded-lg text-sm hover:border-indigo-500 hover:text-indigo-500 transition">
+                              <Edit className="w-3.5 h-3.5" /> Edit
+                            </button>
+                            <button onClick={() => handleDelete(p.id)} className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded-lg text-sm hover:bg-red-100 dark:hover:bg-red-500/20 transition">
+                              <Trash2 className="w-3.5 h-3.5" /> Delete
+                            </button>
                           </div>
                         </div>
                       </div>
